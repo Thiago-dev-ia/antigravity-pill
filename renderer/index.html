@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; script-src 'self'" />
+  <title>Antigravity Pill</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="pill.css" />
+</head>
+<body>
+  <div id="card" class="card hidden"></div>
+  <div id="pill" class="pill" title="Arraste pelo fundo da pílula para mover">
+    <button id="btn-min" title="Minimizar — o ícone na bandeja traz de volta">–</button>
+    <div id="rings"></div>
+  </div>
+  <script src="pill.js"></script>
+</body>
+</html>

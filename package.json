@@ -1,0 +1,29 @@
+{
+  "name": "antigravity-pill",
+  "version": "0.1.0",
+  "description": "Desktop edge pill widget in Electron for real-time quota monitoring across multiple Google Cloud Code / Gemini accounts on CLIProxyAPI",
+  "main": "main.js",
+  "type": "module",
+  "license": "MIT",
+  "author": "Thiago Nascimento (TM Sempre Tecnologia) <thiagonascimento.barbosapro@gmail.com>",
+  "homepage": "https://github.com/Thiago-dev-ia/antigravity-pill#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thiago-dev-ia/antigravity-pill.git"
+  },
+  "keywords": [
+    "electron",
+    "desktop-widget",
+    "gemini",
+    "google-cloud-code",
+    "quota-monitor",
+    "cliproxyapi",
+    "ai-developer-tools"
+  ],
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}

@@ -1,0 +1,240 @@
+/* Antigravity Pill — visual "notch" Codenotch: preto puro, topo da tela,
+   espinha central + sockets circulares ao redor dos anéis (silhueta orgânica),
+   acentos laranja TM #D96526 nos detalhes interativos. */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: transparent;
+  overflow: hidden;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  user-select: none;
+  cursor: default;
+}
+
+/* ---------- pílula notch (pendurada no topo) ---------- */
+.pill {
+  position: fixed;
+  top: 0;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 58px;
+  padding: 0 0 12px;
+  background: #050508;
+  border-radius: 0 0 30px 30px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+  -webkit-app-region: drag;   /* arraste pelo corpo da pílula */
+}
+
+#rings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* socket circular: a "bochecha" que estufa ao redor de cada anel */
+.ring-socket {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: #050508;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-wrap {
+  width: 46px;
+  height: 46px;
+  position: relative;
+  -webkit-app-region: no-drag;   /* hover do card continua funcionando */
+}
+
+.ring-wrap svg { display: block; }
+.ring-track { stroke: #232327; }
+.ring-arc {
+  transition: stroke-dasharray 0.6s ease, stroke 0.4s ease;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  stroke-linecap: round;
+}
+
+.ring-initial {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 13px 'JetBrains Mono', monospace;
+  color: #f5f5f7;
+}
+
+/* percentual embaixo do anel, no corpo da espinha */
+.ring-pct {
+  font: 700 13px 'Plus Jakarta Sans', sans-serif;
+  color: #f5f5f7;
+  letter-spacing: 0.3px;
+  margin: 3px 0 4px;
+}
+
+/* pegador minimalista / botão minimizar */
+#btn-min {
+  -webkit-app-region: no-drag;
+  width: 26px;
+  height: 6px;
+  border: none;
+  border-radius: 3px;
+  background: #2a2a30;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 4px;
+}
+#btn-min:hover { background: #d96526; }
+
+/* ---------- card balão (rabinho apontando pro anel) ---------- */
+.card {
+  position: fixed;
+  right: 104px;
+  top: 16px;
+  width: 360px;
+  background: rgba(8, 8, 10, 0.98);
+  border-radius: 18px;
+  padding: 14px 16px 12px;
+  color: #f5f5f7;
+  box-shadow: 0 12px 44px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.15s ease;
+  z-index: 10;
+}
+
+.card.hidden { opacity: 0; pointer-events: none; }
+
+/* rabinho do balão */
+.card::after {
+  content: '';
+  position: absolute;
+  right: -7px;
+  top: 28px;
+  width: 14px;
+  height: 14px;
+  background: rgba(8, 8, 10, 0.98);
+  transform: rotate(45deg);
+  border-radius: 3px;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glyph {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(217, 101, 38, 0.16);
+  color: #d96526;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 11px 'JetBrains Mono', monospace;
+}
+
+.card-email {
+  font: 700 14px 'Plus Jakarta Sans', sans-serif;
+  color: #f5f5f7;
+  flex: 1;
+  word-break: break-all;
+}
+
+.chip {
+  flex-shrink: 0;
+  font: 700 9px 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.chip.ok  { background: rgba(52, 199, 89, 0.14);  color: #34c759; }
+.chip.err { background: rgba(255, 69, 58, 0.14);  color: #ff453a; }
+.chip.dis { background: rgba(142, 142, 147, 0.15); color: #8e8e93; }
+
+.group-label {
+  margin-top: 12px;
+  font: 600 9.5px 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #8e8e93;
+}
+
+.lane { margin-top: 7px; }
+
+.lane-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.lane-name {
+  font: 500 11.5px 'Plus Jakarta Sans', sans-serif;
+  color: #d1d1d6;
+}
+
+.lane-reset {
+  font: 400 10px 'JetBrains Mono', monospace;
+  color: #8e8e93;
+}
+
+.lane-bar {
+  height: 6px;
+  border-radius: 4px;
+  background: #26262b;
+  overflow: hidden;
+}
+
+.lane-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.lane-used {
+  margin-top: 4px;
+  font: 600 11px 'Plus Jakarta Sans', sans-serif;
+  color: #f5f5f7;
+}
+
+.card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font: 400 9.5px 'JetBrains Mono', monospace;
+  color: #8e8e93;
+}
+
+.btn-refresh {
+  font: 700 9.5px 'JetBrains Mono', monospace;
+  color: #d96526;
+  background: rgba(217, 101, 38, 0.12);
+  border: 1px solid rgba(217, 101, 38, 0.4);
+  border-radius: 7px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.btn-refresh:hover { background: rgba(217, 101, 38, 0.28); }
+
+/* cores semânticas (mesma régua dos anéis) */
+.fill-low  { background: #34c759; }
+.fill-mid  { background: #ff9f0a; }
+.fill-high { background: #ff453a; }
+
+/* scrollbar discreta */
+.card::-webkit-scrollbar { width: 4px; }
+.card::-webkit-scrollbar-thumb { background: #26262b; border-radius: 2px; }

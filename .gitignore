@@ -1,0 +1,29 @@
+# Dependências e build
+node_modules/
+dist/
+
+# Estado local do usuário
+data/*.json
+!data/.gitkeep
+
+# Credenciais e segredos locais (veja core/secret.example.mjs)
+core/secret.local.mjs
+*.local.mjs
+.env
+.env.*
+*.local
+ag_fresh_token.txt
+ag_secret.txt
+
+# Artefatos de debug e logs
+*.log
+shot-*.png
+debug-run.log
+npm-debug.log*
+yarn-debug.log*
+
+# Sistema Operacional e IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
