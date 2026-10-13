@@ -18,6 +18,14 @@ let saveTimer = null;
 const gotLock = app.requestSingleInstanceLock();
 if (!gotLock) {
   app.quit();
+} else {
+  app.on('second-instance', () => {
+    if (win) {
+      if (!win.isVisible()) win.show();
+      win.focus();
+      if (!savedPositionOnScreen()) positionWindow();
+    }
+  });
 }
 
 function sendSnapshot() {
@@ -96,7 +104,7 @@ function createWindow() {
     hasShadow: false,
     show: false,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
       nodeIntegration: false,
     },
@@ -158,13 +166,6 @@ app.whenReady().then(async () => {
   createTray();
   refreshNow();
   setInterval(refreshNow, POLL_MS);
-});
-
-app.on('second-instance', () => {
-  if (win) {
-    win.show();
-    if (!savedPositionOnScreen()) positionWindow();
-  }
 });
 
 app.on('before-quit', savePosition);

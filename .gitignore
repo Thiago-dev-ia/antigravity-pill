@@ -4,6 +4,7 @@ dist/
 
 # Estado local do usuário
 data/*.json
+data/*.png
 !data/.gitkeep
 
 # Credenciais e segredos locais (veja core/secret.example.mjs)
